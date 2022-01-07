@@ -7,23 +7,19 @@ var validateEmail = function (email) {
 const userSchema = new Schema(
   {
     // TODO: create username field
-    username: [
-      {
-        type: String,
-        unique: true,
-        required: true,
-        trim: true,
-      },
-    ],
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+    },
     // TODO: create email field
-    email: [
-      {
-        type: String,
-        unique: true,
-        required: true,
-        validate: [validateEmail, "Please enter a valid email address."],
-      },
-    ],
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      validate: [validateEmail, "Please enter a valid email address."],
+    },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
