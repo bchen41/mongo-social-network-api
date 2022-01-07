@@ -22,6 +22,11 @@ const thoughtController = {
   // create a thought
   createThought(req, res) {
     // TODO: create a thought and add the thought to user's thoughts array
+    // findOne user with req.body.userId
+    // if (!user) return res.status(404).json
+    // else {1. create thought
+    // 2. res.json("Created the thought!")
+    // }
     Thought.create(req.body)
       .then((thought) => {
         return User.findOneAndUpdate(
@@ -71,7 +76,7 @@ const thoughtController = {
         if (!dbUserData) {
           return res
             .status(404)
-            .json({ message: "Thought created but no user with this id!" });
+            .json({ message: "Thought deleted, but no user with this id!" });
         }
         res.json({ message: "Thought successfully deleted!" });
       })
