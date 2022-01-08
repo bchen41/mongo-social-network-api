@@ -1,7 +1,6 @@
 const { User, Thought } = require("../models");
 
 const userController = {
-  // get all users
   getUsers(req, res) {
     User.find()
       .select("-__v")
@@ -14,21 +13,21 @@ const userController = {
       });
   },
 
-  // get single user by id
   getSingleUser(req, res) {
-    // TODO: use .populate() to populate docs for friends and thoughts arrays
     User.findOne({ _id: req.params.userId })
       .select("-__v")
+      .populate("friends")
       .populate("thoughts")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
           : res.json(user)
       )
-      .catch((err) => res.status(500).json(err));
+      .catch((err) => {
+        res.status(500).json(err);
+      });
   },
 
-  // create a new user
   createUser(req, res) {
     User.create(req.body)
       .then((dbUserData) => {
@@ -40,7 +39,6 @@ const userController = {
       });
   },
 
-  // update a user
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -59,20 +57,16 @@ const userController = {
         res.json(dbUserData);
       })
       .catch((err) => {
-        console.log(err);
         res.status(500).json(err);
       });
   },
 
-  // delete user (BONUS: and delete associated thoughts)
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((dbUserData) => {
         if (!dbUserData) {
           return res.status(404).json({ message: "No user with this id!" });
         }
-
-        // BONUS: get ids of user's `thoughts` and delete them all
         return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
       })
       .then(() => {
@@ -84,7 +78,6 @@ const userController = {
       });
   },
 
-  // add friend to friend list
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -103,7 +96,6 @@ const userController = {
       });
   },
 
-  // remove friend from friend list
   removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
