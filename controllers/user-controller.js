@@ -88,7 +88,7 @@ const userController = {
         if (!dbUserData) {
           return res.status(404).json({ message: "No user with this id!" });
         }
-        res.json(dbUserData);
+        res.json({ message: `Friend successfully added.` });
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +106,7 @@ const userController = {
         if (!dbUserData) {
           return res.status(404).json({ message: "No user with this id!" });
         }
-        res.json(dbUserData);
+        res.json({ message: `Friend successfully removed.` });
       })
       .catch((err) => {
         console.log(err);
