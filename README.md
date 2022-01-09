@@ -34,7 +34,7 @@ Insomnia POST Method of Reactions
 
 ## Video
 
-Click [here]()!
+Click [here](https://watch.screencastify.com/v/Vjb1B5TvXruDkddy3P1A)!
 
 ## License
 
