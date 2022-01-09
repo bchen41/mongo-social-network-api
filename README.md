@@ -4,7 +4,7 @@
 
 - [Description](#description)
 - [Installations](#installations)
-- [Screenshot](#screenshot)
+- [Screenshots](#screenshots)
 - [Video](#video)
 - [Lincense](#license)
 - [Contributing](#contributing)
@@ -40,7 +40,7 @@ Click [here](https://watch.screencastify.com/v/Vjb1B5TvXruDkddy3P1A)!
 
 ![badge](https://img.shields.io/badge/license-MIT-blue)
 <br/>
-Copyright © 2021 [Betty Chen](https://github.com/bchen41). <br />
+Copyright © 2022 [Betty Chen](https://github.com/bchen41). <br />
 This project is [MIT](https://github.com/bchen41/mongo-social-network-api/blob/main/LICENSE) licensed.
 
 ## Contributing
