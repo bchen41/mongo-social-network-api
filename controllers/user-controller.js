@@ -20,7 +20,7 @@ const userController = {
       .populate("thoughts")
       .then((user) =>
         !user
-          ? res.status(404).json({ message: "No user with that ID" })
+          ? res.status(404).json({ message: "No user with this ID!" })
           : res.json(user)
       )
       .catch((err) => {
@@ -52,9 +52,9 @@ const userController = {
     )
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: "No user with this id!" });
+          return res.status(404).json({ message: "No user with this ID!" });
         }
-        res.json(dbUserData);
+        res.json({ message: "User updated!", data: dbUserData });
       })
       .catch((err) => {
         res.status(500).json(err);
@@ -65,7 +65,7 @@ const userController = {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: "No user with this id!" });
+          return res.status(404).json({ message: "No user with this ID!" });
         }
         return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
       })
@@ -86,9 +86,9 @@ const userController = {
     )
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: "No user with this id!" });
+          return res.status(404).json({ message: "No user with this ID!" });
         }
-        res.json({ message: `Friend successfully added.` });
+        res.json({ message: "Friend added!" });
       })
       .catch((err) => {
         console.log(err);
@@ -104,9 +104,9 @@ const userController = {
     )
       .then((dbUserData) => {
         if (!dbUserData) {
-          return res.status(404).json({ message: "No user with this id!" });
+          return res.status(404).json({ message: "No user with this ID!" });
         }
-        res.json({ message: `Friend successfully removed.` });
+        res.json({ message: "Friend removed!" });
       })
       .catch((err) => {
         console.log(err);
