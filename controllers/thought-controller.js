@@ -18,26 +18,34 @@ const thoughtController = {
   },
 
   createThought(req, res) {
-    Thought.create(req.body)
-      .then((thought) => {
-        return User.findOneAndUpdate(
-          { _id: req.body.userId },
-          { $addToSet: { thoughts: thought._id } },
-          { new: true }
-        );
+    User.findOne({ _id: req.body.userId, username: req.body.username })
+      .then((user) => {
+        if (user === null) {
+          res.status(404).json({
+            message: "Thought not created because invalid user ID or username!",
+          });
+        } else {
+          Thought.create(req.body)
+            .then((thought) => {
+              return User.findOneAndUpdate(
+                { _id: req.body.userId },
+                { $addToSet: { thoughts: thought._id } },
+                { new: true }
+              );
+            })
+            .then((user) =>
+              res.json({
+                message: `Thought created for user: ${user.username}!`,
+                data: req.body,
+              })
+            )
+            .catch((err) => {
+              res.status(500).json(err);
+            });
+        }
       })
-      .then((user) =>
-        !user
-          ? res.status(404).json({
-              message: "Thought created, but found no user with this ID!",
-            })
-          : res.json({
-              message: "Thought created!",
-              data: req.body,
-            })
-      )
       .catch((err) => {
-        res.status(500).json(err);
+        res.status(500).json({ message: "User ID is invalid!" });
       });
   },
 
